@@ -6,7 +6,7 @@ import { useAuth } from '../../hooks/useAuth'
 import { getCompanySettings } from '../../services/database'
 
 const Header = () => {
-  const { sidebarOpen, toggleSidebar, theme, setTheme } = useStore()
+  const { toggleSidebar, theme, setTheme } = useStore();
   const { profile, logout } = useAuth()
   const navigate = useNavigate()
   const [portalName, setPortalName] = useState('Invoice App')
