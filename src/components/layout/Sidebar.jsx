@@ -8,7 +8,7 @@ import {
   UserCog,
   User,
   LogOut,
-  X
+ // X
 } from 'lucide-react'
 import { useAuth } from '../../hooks/useAuth'
 import useStore from '../../lib/store'
