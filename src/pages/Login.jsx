@@ -5,8 +5,8 @@ import { Button } from '../components/ui/Button'
 import toast from 'react-hot-toast'
 
 const Login = () => {
-  const [email, setEmail] = useState('yathamabhiram80@gmail.com')
-  const [password, setPassword] = useState('password123')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const { login, user } = useAuth()
   const navigate = useNavigate()
