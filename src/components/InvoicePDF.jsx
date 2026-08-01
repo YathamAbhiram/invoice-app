@@ -792,7 +792,7 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
                 <Image src={settings.signature_image} style={{ width: 60, height: 25, objectFit: 'contain' }} />
               )}
               <Text style={[styles.sigText, { borderTopWidth: 0.5, width: '70%' }]}>Authorised Signatory</Text>
-              <Text style={styles.computerGeneratedText}>This is a computer generated invoice no signature required.</Text>
+              <Text style={styles.computerGeneratedText}>This is a computer generated invoice.</Text>
             </View>
           </View>
         </View>
