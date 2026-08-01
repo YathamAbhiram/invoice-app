@@ -28,25 +28,15 @@ const Login = () => {
     
     setLoading(true)
     
-    try {
-      const { data, error } = await login(email, password)
-      
-      if (error) {
-        toast.error(error.message || 'Invalid email or password')
-        setLoading(false)
-        return
-      }
-      
-      if (data?.user) {
-        toast.success('Welcome back!')
-        setLoading(false)
-        // The useEffect will handle navigation
-      } else {
-        setLoading(false)
-        toast.error('Login failed')
-      }
-    } catch (err) {
-      toast.error('Something went wrong')
+    const { data, error } = await login(email, password)
+    
+    if (error) {
+      toast.error(error.message || 'Invalid email or password')
+      setLoading(false)
+    } else if (data?.user) {
+      toast.success('Welcome back!')
+      setLoading(false)
+    } else {
       setLoading(false)
     }
   }
@@ -89,15 +79,8 @@ const Login = () => {
             {loading ? 'Signing in...' : 'Sign In'}
           </Button>
         </form>
-        <div className="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-          <p>Demo Credentials:</p>
-          <p className="text-xs">Super Admin: yathamabhiram80@gmail.com</p>
-          <p className="text-xs">Staff: staff@test.com</p>
-          <p className="text-xs">Password for all: password123</p>
-        </div>
       </div>
     </div>
   )
 }
-
 export default Login
