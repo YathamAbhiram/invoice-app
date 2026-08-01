@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica'
   },
   
-  // Header Section - Layout as specified
+  // Header Section
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -81,14 +81,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     minWidth: 130,
   },
-  contactLine: {
-    fontSize: 9,
-    color: '#333333',
-    lineHeight: 1.8,
-    marginBottom: 0,
-    textAlign: 'right',
-    paddingVertical: 1,
-  },
   contactLineBold: {
     fontSize: 9,
     color: '#333333',
@@ -104,6 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     borderColor: '#000000',
+    borderStyle: 'solid',
     alignItems: 'center',
     padding: 3,
     marginTop: 4,
@@ -131,11 +124,13 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#000000',
+    borderStyle: 'solid',
   },
   leftDetails: {
     width: '55%',
     borderRightWidth: 1,
     borderRightColor: '#000000',
+    borderStyle: 'solid',
   },
   rightDetails: {
     width: '45%',
@@ -146,12 +141,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
+    borderStyle: 'solid',
     padding: 2,
     backgroundColor: '#f5f5f5',
   },
   infoRow: {
     flexDirection: 'row',
     minHeight: 16,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#cccccc',
+    borderStyle: 'solid',
   },
   infoLabel: {
     width: 55,
@@ -165,73 +164,64 @@ const styles = StyleSheet.create({
     fontSize: 8,
     padding: 2,
   },
+  noBorder: {
+    borderBottomWidth: 0,
+  },
 
   // Products Table
   productsTable: {
     marginTop: 6,
     borderWidth: 1,
     borderColor: '#000000',
+    borderStyle: 'solid',
   },
   tableHeader: {
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
-    alignItems: 'stretch',
-    minHeight: 28,
+    borderStyle: 'solid',
+    backgroundColor: '#f5f5f5',
+    minHeight: 25,
   },
   tableHeaderCell: {
-    fontSize: 8,
+    fontSize: 7,
     fontWeight: 'bold',
     textAlign: 'center',
     padding: 4,
     justifyContent: 'center',
     borderRightWidth: 1,
     borderRightColor: '#000000',
-  },
-  gstHeaderContainer: {
-    width: 75,
-    borderRightWidth: 1,
-    borderRightColor: '#000000',
-  },
-  gstTopCell: {
-    fontSize: 8,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: 3,
-    borderBottomWidth: 1,
-    borderBottomColor: '#000000',
-  },
-  gstSubHeader: {
-    flexDirection: 'row',
-    flex: 1,
-  },
-  gstSubCell: {
-    fontSize: 7,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    padding: 3,
+    borderStyle: 'solid',
   },
   tableRow: {
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
-    alignItems: 'stretch',
-    minHeight: 16,
+    borderStyle: 'solid',
+    minHeight: 20,
   },
   tableCell: {
-    fontSize: 8,
-    padding: 3,
+    fontSize: 7,
+    padding: 4,
     borderRightWidth: 1,
     borderRightColor: '#000000',
+    borderStyle: 'solid',
   },
-  
+  noBorderRight: {
+    borderRightWidth: 0,
+  },
+  noBottomBorder: {
+    borderBottomWidth: 0,
+  },
+
+  // Column widths
   colSr: { width: 25, textAlign: 'center' },
   colName: { flex: 1.5 },
   colHsn: { width: 50, textAlign: 'center' },
-  colQty: { width: 38, textAlign: 'center' },
+  colQty: { width: 40, textAlign: 'center' },
   colRate: { width: 55, textAlign: 'right' },
   colTaxable: { width: 60, textAlign: 'right' },
-  colGstPct: { width: 28, textAlign: 'center' },
+  colGstPct: { width: 30, textAlign: 'center' },
   colGstAmt: { width: 50, textAlign: 'right' },
   colTotal: { width: 60, textAlign: 'right', borderRightWidth: 0 },
 
@@ -242,11 +232,13 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#000000',
+    borderStyle: 'solid',
   },
   bottomLeftSection: {
     width: '60%',
     borderRightWidth: 1,
     borderRightColor: '#000000',
+    borderStyle: 'solid',
   },
   bottomRightSection: {
     width: '40%',
@@ -256,6 +248,7 @@ const styles = StyleSheet.create({
     padding: 4,
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
+    borderStyle: 'solid',
     minHeight: 30,
   },
   wordsTitle: {
@@ -296,6 +289,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
+    borderStyle: 'solid',
     minHeight: 14,
     alignItems: 'center',
   },
@@ -389,7 +383,7 @@ const numberToWords = (num) => {
   return result + ' ONLY';
 };
 
-// SIMPLE Indian number formatter
+// SIMPLE Indian number formatter - FIXED
 const formatIndianNumber = (num) => {
   if (isNaN(num) || num === null || num === undefined) return '0.00';
   const n = parseFloat(num);
@@ -397,22 +391,35 @@ const formatIndianNumber = (num) => {
   
   const fixedNum = n.toFixed(2);
   const parts = fixedNum.split('.');
-  const intPart = parts[0];
+  let intPart = parts[0];
   const decPart = parts[1] || '00';
   
-  let result = '';
+  // Remove leading zeros
+  intPart = intPart.replace(/^0+/, '') || '0';
+  
+  // Format with Indian numbering system
+  // Last 3 digits, then groups of 2
   const len = intPart.length;
   
   if (len <= 3) {
-    result = intPart;
-  } else {
-    const lastThree = intPart.substring(len - 3);
-    const otherDigits = intPart.substring(0, len - 3);
-    const pairs = otherDigits.match(/\d{1,2}/g) || [];
-    result = pairs.join(',') + ',' + lastThree;
+    return intPart + '.' + decPart;
   }
   
-  return result + '.' + decPart;
+  // Get last 3 digits
+  const lastThree = intPart.substring(len - 3);
+  const otherDigits = intPart.substring(0, len - 3);
+  
+  // Format the rest in groups of 2
+  let formattedOther = '';
+  for (let i = 0; i < otherDigits.length; i++) {
+    formattedOther += otherDigits[i];
+    // Add comma after every 2 digits from the right
+    if ((otherDigits.length - i - 1) % 2 === 0 && i < otherDigits.length - 1) {
+      formattedOther += ',';
+    }
+  }
+  
+  return formattedOther + ',' + lastThree + '.' + decPart;
 };
 
 // Format as currency
@@ -511,9 +518,9 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
     <Document>
       <Page size="A4" style={styles.page}>
         
-        {/* Header with Logo on Left - Larger text and highlighted tagline */}
+        {/* Header */}
         <View style={styles.headerContainer}>
-          {/* Logo on Left */}
+          {/* Logo */}
           <View style={styles.logoContainer}>
             {settings.logo ? (
               <Image src={settings.logo} style={styles.logo} />
@@ -522,7 +529,7 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
             )}
           </View>
           
-          {/* Company Info beside Logo */}
+          {/* Company Info */}
           <View style={styles.companyInfoContainer}>
             <Text style={styles.companyName}>{settings.company_name || 'GUJARAT FREIGHT TOOLS'}</Text>
             <Text style={styles.tagline}>{settings.tagline || 'Manufacturing & Supply of Precision Press Tool & Room Component'}</Text>
@@ -593,29 +600,29 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
           </View>
 
           <View style={styles.rightDetails}>
-            <View style={[styles.infoRow, { borderBottomWidth: 0.5, borderColor: '#000000' }]}>
+            <View style={[styles.infoRow, styles.noBorder]}>
               <Text style={styles.infoLabel}>Invoice No.</Text>
               <Text style={[styles.infoValue, { fontWeight: 'bold' }]}>{invoice_no}</Text>
               <Text style={[styles.infoLabel, { width: 45 }]}>Invoice Date</Text>
               <Text style={[styles.infoValue, { fontSize: 6 }]}>{formattedDate}</Text>
             </View>
-            <View style={[styles.infoRow, { borderBottomWidth: 0.5, borderColor: '#000000' }]}>
+            <View style={[styles.infoRow, styles.noBorder]}>
               <Text style={styles.infoLabel}>P.O. No.</Text>
               <Text style={[styles.infoValue, { fontWeight: 'bold' }]}>{po_number || '-'}</Text>
               <Text style={[styles.infoLabel, { width: 45 }]}>Time</Text>
               <Text style={[styles.infoValue, { fontSize: 6 }]}>{formattedTime}</Text>
             </View>
-            <View style={[styles.infoRow, { borderBottomWidth: 0.5, borderColor: '#000000' }]}>
+            <View style={[styles.infoRow, styles.noBorder]}>
               <Text style={styles.infoLabel}>Place of Supply</Text>
               <Text style={styles.infoValue}>{customer.place_of_supply || '-'}</Text>
             </View>
             {hasTransport && (
               <>
-                <View style={[styles.infoRow, { borderBottomWidth: 0.5, borderColor: '#000000' }]}>
+                <View style={[styles.infoRow, styles.noBorder]}>
                   <Text style={styles.infoLabel}>Transport</Text>
                   <Text style={styles.infoValue}>{transport_location}</Text>
                 </View>
-                <View style={styles.infoRow}>
+                <View style={[styles.infoRow, styles.noBorder]}>
                   <Text style={styles.infoLabel}>Transport ID</Text>
                   <Text style={styles.infoValue}>{transport_id}</Text>
                 </View>
@@ -627,24 +634,33 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
         {/* Products Table */}
         <View style={styles.productsTable}>
           <View style={styles.tableHeader}>
-            <View style={[styles.tableHeaderCell, styles.colSr]}><Text>Sr.</Text></View>
-            <View style={[styles.tableHeaderCell, styles.colName]}><Text>Name of Product / Service</Text></View>
-            <View style={[styles.tableHeaderCell, styles.colHsn]}><Text>HSN / SAC</Text></View>
-            <View style={[styles.tableHeaderCell, styles.colQty]}><Text>Qty</Text></View>
-            <View style={[styles.tableHeaderCell, styles.colRate]}><Text>Rate</Text></View>
-            <View style={[styles.tableHeaderCell, styles.colTaxable]}><Text>Taxable Value</Text></View>
-            <View style={styles.gstHeaderContainer}>
-              <Text style={styles.gstTopCell}>GST</Text>
-              <View style={styles.gstSubHeader}>
-                <View style={[styles.gstSubCell, { width: 28, borderRightWidth: 1, borderRightColor: '#000000' }]}>
-                  <Text>%</Text>
-                </View>
-                <View style={[styles.gstSubCell, { width: 50 }]}>
-                  <Text>Amount</Text>
-                </View>
-              </View>
+            <View style={[styles.tableHeaderCell, styles.colSr]}>
+              <Text>Sr.</Text>
             </View>
-            <View style={[styles.tableHeaderCell, styles.colTotal]}><Text>Total</Text></View>
+            <View style={[styles.tableHeaderCell, styles.colName]}>
+              <Text>Name of Product / Service</Text>
+            </View>
+            <View style={[styles.tableHeaderCell, styles.colHsn]}>
+              <Text>HSN / SAC</Text>
+            </View>
+            <View style={[styles.tableHeaderCell, styles.colQty]}>
+              <Text>Qty</Text>
+            </View>
+            <View style={[styles.tableHeaderCell, styles.colRate]}>
+              <Text>Rate</Text>
+            </View>
+            <View style={[styles.tableHeaderCell, styles.colTaxable]}>
+              <Text>Taxable Value</Text>
+            </View>
+            <View style={[styles.tableHeaderCell, styles.colGstPct]}>
+              <Text>GST</Text>
+            </View>
+            <View style={[styles.tableHeaderCell, styles.colGstAmt]}>
+              <Text>Amount</Text>
+            </View>
+            <View style={[styles.tableHeaderCell, styles.colTotal, styles.noBorderRight]}>
+              <Text>Total</Text>
+            </View>
           </View>
           
           {allProducts.map((product, index) => {
@@ -667,14 +683,14 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
                 <Text style={[styles.tableCell, styles.colQty]}>{qty} {product.unit || 'NOS'}</Text>
                 <Text style={[styles.tableCell, styles.colRate]}>{price.toFixed(2)}</Text>
                 <Text style={[styles.tableCell, styles.colTaxable]}>{taxable.toFixed(2)}</Text>
-                <Text style={[styles.tableCell, styles.colGstPct]}>{gst}</Text>
+                <Text style={[styles.tableCell, styles.colGstPct]}>{gst}%</Text>
                 <Text style={[styles.tableCell, styles.colGstAmt]}>{gstAmount.toFixed(2)}</Text>
-                <Text style={[styles.tableCell, styles.colTotal, { fontWeight: 'bold' }]}>{total.toFixed(2)}</Text>
+                <Text style={[styles.tableCell, styles.colTotal, styles.noBorderRight]}>{total.toFixed(2)}</Text>
               </View>
             );
           })}
 
-          <View style={[styles.tableRow, { backgroundColor: '#f5f5f5', fontWeight: 'bold', minHeight: 14 }]}>
+          <View style={[styles.tableRow, styles.noBottomBorder]}>
             <Text style={[styles.tableCell, styles.colSr]}></Text>
             <Text style={[styles.tableCell, styles.colName, { textAlign: 'right', fontWeight: 'bold' }]}>Total</Text>
             <Text style={[styles.tableCell, styles.colHsn]}></Text>
@@ -683,7 +699,7 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
             <Text style={[styles.tableCell, styles.colTaxable, { fontWeight: 'bold' }]}>{taxableAmount.toFixed(2)}</Text>
             <Text style={[styles.tableCell, styles.colGstPct]}></Text>
             <Text style={[styles.tableCell, styles.colGstAmt, { fontWeight: 'bold' }]}>{totalGST.toFixed(2)}</Text>
-            <Text style={[styles.tableCell, styles.colTotal, { fontWeight: 'bold' }]}>{grandTotal.toFixed(2)}</Text>
+            <Text style={[styles.tableCell, styles.colTotal, styles.noBorderRight, { fontWeight: 'bold' }]}>{grandTotal.toFixed(2)}</Text>
           </View>
         </View>
 
