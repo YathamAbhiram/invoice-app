@@ -64,7 +64,7 @@ const NewInvoice = () => {
       unit: 'NOS',
       price: 0,
       discount: 0,
-      gst: 18,
+      gst: 0,
       total: 0
     }
   ])
@@ -76,7 +76,7 @@ const NewInvoice = () => {
     unit: 'NOS',
     price: 0,
     discount: 0,
-    gst: 18,
+    gst: 0,
     total: 0
   })
 
@@ -157,7 +157,7 @@ const NewInvoice = () => {
         unit: 'NOS',
         price: 0,
         discount: 0,
-        gst: 18,
+        gst: 0,
         total: 0
       }
     ])
@@ -693,7 +693,7 @@ const NewInvoice = () => {
                         quantity: 1,
                         price: 0,
                         discount: 0,
-                        gst: 18,
+                        gst: 0,
                         total: 0
                       }))
                     }
@@ -752,6 +752,7 @@ const NewInvoice = () => {
         {(!isMobile || showProducts) && (
           <CardContent className="p-3 md:p-6 pt-0 md:pt-0">
             <div className="space-y-4">
+              {/* Products */}
               {products.map((product, index) => (
                 <div 
                   key={product.id} 
@@ -761,9 +762,8 @@ const NewInvoice = () => {
                   `}
                 >
                   {isMobile ? (
-                    // Mobile View - 3 Lines (HSN beside Product Name)
+                    // Mobile View - 3 Lines
                     <>
-                      {/* Line 1: Product Name & HSN/SAC (side by side) */}
                       <div className="grid grid-cols-3 gap-2 mb-2">
                         <div className="col-span-2">
                           <label className="block text-[10px] font-medium text-muted-foreground mb-0.5">Product Name *</label>
@@ -784,8 +784,6 @@ const NewInvoice = () => {
                           />
                         </div>
                       </div>
-                      
-                      {/* Line 2: Qty, Unit, Price */}
                       <div className="grid grid-cols-3 gap-2 mb-2">
                         <div>
                           <label className="block text-[10px] font-medium text-muted-foreground mb-0.5">Qty *</label>
@@ -823,8 +821,6 @@ const NewInvoice = () => {
                           />
                         </div>
                       </div>
-                      
-                      {/* Line 3: Discount, GST, Total, Delete */}
                       <div className="grid grid-cols-4 gap-2 items-center">
                         <div>
                           <label className="block text-[10px] font-medium text-muted-foreground mb-0.5">Disc %</label>
@@ -870,7 +866,7 @@ const NewInvoice = () => {
                       </div>
                     </>
                   ) : (
-                    // Desktop View - 1 Line (HSN included)
+                    // Desktop View - 1 Line
                     <>
                       <div className="col-span-2">
                         <label className="block text-xs font-medium mb-1">Product Name *</label>
@@ -995,7 +991,6 @@ const NewInvoice = () => {
                   {isMobile ? (
                     // Mobile View - 3 Lines
                     <>
-                      {/* Line 1: Description & HSN/SAC (side by side) */}
                       <div className="grid grid-cols-3 gap-2 mb-2">
                         <div className="col-span-2">
                           <label className="block text-[10px] font-medium text-muted-foreground mb-0.5">Description</label>
@@ -1015,8 +1010,6 @@ const NewInvoice = () => {
                           />
                         </div>
                       </div>
-                      
-                      {/* Line 2: Qty, Unit, Price */}
                       <div className="grid grid-cols-3 gap-2 mb-2">
                         <div>
                           <label className="block text-[10px] font-medium text-muted-foreground mb-0.5">Qty</label>
@@ -1054,8 +1047,6 @@ const NewInvoice = () => {
                           />
                         </div>
                       </div>
-                      
-                      {/* Line 3: Discount, GST, Total, Delete */}
                       <div className="grid grid-cols-4 gap-2 items-center">
                         <div>
                           <label className="block text-[10px] font-medium text-muted-foreground mb-0.5">Disc %</label>
@@ -1100,7 +1091,7 @@ const NewInvoice = () => {
                                 quantity: 1,
                                 price: 0,
                                 discount: 0,
-                                gst: 18,
+                                gst: 0,
                                 total: 0
                               }))
                               setCustomer({...customer, transport_location: ''})
@@ -1212,7 +1203,7 @@ const NewInvoice = () => {
                               quantity: 1,
                               price: 0,
                               discount: 0,
-                              gst: 18,
+                              gst: 0,
                               total: 0
                             }))
                             setCustomer({...customer, transport_location: ''})
