@@ -383,7 +383,7 @@ const numberToWords = (num) => {
   return result + ' ONLY';
 };
 
-// SIMPLE Indian number formatter - FIXED
+// SIMPLE Indian number formatter
 const formatIndianNumber = (num) => {
   if (isNaN(num) || num === null || num === undefined) return '0.00';
   const n = parseFloat(num);
@@ -398,22 +398,18 @@ const formatIndianNumber = (num) => {
   intPart = intPart.replace(/^0+/, '') || '0';
   
   // Format with Indian numbering system
-  // Last 3 digits, then groups of 2
   const len = intPart.length;
   
   if (len <= 3) {
     return intPart + '.' + decPart;
   }
   
-  // Get last 3 digits
   const lastThree = intPart.substring(len - 3);
   const otherDigits = intPart.substring(0, len - 3);
   
-  // Format the rest in groups of 2
   let formattedOther = '';
   for (let i = 0; i < otherDigits.length; i++) {
     formattedOther += otherDigits[i];
-    // Add comma after every 2 digits from the right
     if ((otherDigits.length - i - 1) % 2 === 0 && i < otherDigits.length - 1) {
       formattedOther += ',';
     }
@@ -513,6 +509,9 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
   const email = settings.email || '';
   const website = settings.website || '';
   const gstNumber = settings.gst_number || '26CORPP3939N1';
+
+  // Calculate total quantity
+  const totalQuantity = allProducts.reduce((sum, p) => sum + (p.quantity || 0), 0);
 
   return (
     <Document>
@@ -690,11 +689,14 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
             );
           })}
 
+          {/* Total Row - FIXED: Qty shows sum of all quantities */}
           <View style={[styles.tableRow, styles.noBottomBorder]}>
             <Text style={[styles.tableCell, styles.colSr]}></Text>
             <Text style={[styles.tableCell, styles.colName, { textAlign: 'right', fontWeight: 'bold' }]}>Total</Text>
             <Text style={[styles.tableCell, styles.colHsn]}></Text>
-            <Text style={[styles.tableCell, styles.colQty, { fontWeight: 'bold' }]}>{allProducts.length} NOS</Text>
+            <Text style={[styles.tableCell, styles.colQty, { fontWeight: 'bold' }]}>
+              {totalQuantity} NOS
+            </Text>
             <Text style={[styles.tableCell, styles.colRate]}></Text>
             <Text style={[styles.tableCell, styles.colTaxable, { fontWeight: 'bold' }]}>{taxableAmount.toFixed(2)}</Text>
             <Text style={[styles.tableCell, styles.colGstPct]}></Text>
@@ -792,7 +794,7 @@ const InvoicePDF = ({ invoiceData, companySettings }) => {
                 <Image src={settings.signature_image} style={{ width: 60, height: 25, objectFit: 'contain' }} />
               )}
               <Text style={[styles.sigText, { borderTopWidth: 0.5, width: '70%' }]}>Authorised Signatory</Text>
-              <Text style={styles.computerGeneratedText}>This is a computer generated invoice.</Text>
+              <Text style={styles.computerGeneratedText}>This is a computer generated invoice no signature required.</Text>
             </View>
           </View>
         </View>
